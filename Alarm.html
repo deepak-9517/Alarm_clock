@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            font-size: 100px;
+            /* background-color: red; */
+            margin-top: 10px;
+
+        }
+        #time{
+            background-color: aqua;
+            font-size: 170px;
+            text-align: center;
+            margin-top: -50px;
+        }   
+        button{
+            font-size: 20px;
+            color: white;
+            background-color: palevioletred;
+            padding: 10px;
+        }  
+        #show{
+            font-size: 30px;
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <audio src="alrm.mp3" id="sound"></audio>
+        <h1>Alarm Clock</h1>
+        <div id="time"></div>
+        <input type="time" id="setalarm"><br>
+        <button onclick="set_alarm()">Set Alarm</button>
+        <button onclick="stop_Alarm()">Stop Alarm</button><br>
+        <div id="show"></div>
+</center>
+</body>
+<script>
+    let settime=document.getElementById("time");
+    let show=document.getElementById("show");
+    let sound=document.getElementById("sound");
+    let setalarm=document.getElementById("setalarm");
+    let atime,stop;
+    function alarm_time(){
+        let time=new Date();
+        let hh=time.getHours().toString().padStart(2,"0");
+        let mm=time.getMinutes().toString().padStart(2,"0");
+        let ss=time.getSeconds().toString().padStart(2,"0");
+          atime=`${hh}:${mm}`
+        settime.innerHTML=`${hh}:${mm}:${ss}`;
+    }
+    function Alarm_play(){
+        if(atime===setalarm.value){
+            sound.play();
+            clearInterval(stop);
+        }
+    }
+    function stop_Alarm(){
+        sound.pause();
+        show.innerHTML=`Alarm Stop`;
+    }
+    function set_alarm(){
+        let seta=document.getElementById("seta");
+        show.innerHTML=`Alarm is activated ${setalarm.value}`;
+         stop = setInterval("Alarm_play()",1000);
+    }
+    setInterval("alarm_time()",1000);
+</script>
+</html>
